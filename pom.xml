@@ -35,6 +35,7 @@
 	
 	<modules>
 		<module>config</module>
+		<module>admin</module>
 		<module>monitoring</module>
 		<module>registry</module>
 		<module>gateway</module>

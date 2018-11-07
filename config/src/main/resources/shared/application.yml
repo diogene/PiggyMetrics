@@ -25,3 +25,12 @@ security:
 spring:
   rabbitmq:
     host: rabbitmq
+
+
+management:
+  security:
+    enabled: false
+    endpoints:
+      web:
+        exposure:
+          include: "*"

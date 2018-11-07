@@ -1,0 +1,50 @@
+version: '2.1'
+services:
+  auth-mongodb:
+    environment:
+      MONGODB_PASSWORD: $MONGODB_PASSWORD
+    image: sqshq/piggymetrics-mongodb
+    restart: always
+    ports:
+      - 25000:27017
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+        
+  account-mongodb:
+    environment:
+      INIT_DUMP: account-service-dump.js
+      MONGODB_PASSWORD: $MONGODB_PASSWORD
+    image: sqshq/piggymetrics-mongodb
+    restart: always
+    ports:
+      - 26000:27017
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+        
+  statistics-mongodb:
+    environment:
+      MONGODB_PASSWORD: $MONGODB_PASSWORD
+    image: sqshq/piggymetrics-mongodb
+    restart: always
+    ports:
+      - 27000:27017
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+  notification-mongodb:
+    image: sqshq/piggymetrics-mongodb
+    restart: always
+    environment:
+      MONGODB_PASSWORD: $MONGODB_PASSWORD
+    ports:
+      - 28000:27017
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
