@@ -1,0 +1,58 @@
+docker swarm init --advertise-addr=192.168.1.28 --listen-addr=192.168.1.28:2377
+
+puis sur un noeud :
+docker swarm join --token SWMTKN-1-5zd6kw3qowynvq1hyo3cross806kg30tbi9i79xjefv0hv2qen-4f92hzjcz91awrbdvt2amt2cd 192.168.1.28:2377
+
+pour visualiser le syst�me :
+docker node ls
+
+sous windows :
+Penser a desactiver le parfeu windows
+
+lecture des reseaux disponibles : 
+docker network ls
+
+
+ajout visualisation du cluster swarm 
+docker run -it -d -p 9999:8080 -v /var/run/docker.sock:/var/run/docker.sock dockersamples/visualizer
+sous windows :ping 
+$ip=(Get-NetIPAddress -AddressFamily IPv4 | Where-Object -FilterScript { $_.InterfaceAlias -Eq "vEthernet (HNS Internal NIC)" } ).IPAddress
+
+docker run -d -p 9999:8080 -e DOCKER_HOST=192.168.1.28:2377 --name=visualizer stefanscherer/visualizer-windows
+en mode service sous docker swarm
+docker service create \
+  --name=viz \
+  --publish=8080:8080/tcp \
+  --constraint=node.role==manager \
+  --mount=type=bind,src=/var/run/docker.sock,dst=/var/run/docker.sock \
+  dockersamples/visualizer
+
+
+
+
+
+docker-compose up --force-recreate
+
+Ajouter un service : --scale SERVICE=NUM
+
+lister les containers lanc� :  docker stack ps piggy
+lister les services : docker service ls
+
+
+
+
+
+
+
+
+
+
+
+https://docs.traefik.io/user-guide/swarm-mode/
+docker-machine ssh manager "docker network create --driver=overlay traefik-net"
+docker-machine ssh manager "docker node update --label-add role==manager RIVA"
+
+docker-machine ssh manager "docker service create --name traefik --constraint=node.role==manager --publish 80:80 --publish 8080:8080 --mount type=bind,source=/var/run/docker.sock,target=/var/run/docker.sock --network traefik-net  traefik --docker --docker.swarmMode --docker.domain=traefik --docker.watch --api"
+
+docker-machine ssh manager "docker service create --name whoami0 --label traefik.port=80 --network traefik-net containous/whoami"
+
