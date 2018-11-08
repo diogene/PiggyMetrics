@@ -1,0 +1,15 @@
+
+192.168.1.28 	account-mongodb
+192.168.1.28 	auth-mongodb
+192.168.1.28 	statistics-mongodb
+192.168.1.28 	notification-mongodb
+192.168.1.28 	rabbitmq
+192.168.1.28 	config
+192.168.1.28 	registry
+192.168.1.28 	gateway
+192.168.1.28 	auth-service
+192.168.1.28 	account-service
+192.168.1.28 	statistics-service
+192.168.1.28 	notification-service
+192.168.1.28 	monitoring
+192.168.1.28 	turbine-stream-service

@@ -30,7 +30,16 @@ spring:
 management:
   security:
     enabled: false
+  metrics:
+    export:
+      prometheus:
+        enabled: true
     endpoints:
       web:
         exposure:
           include: "*"
+    endpoint:
+      metrics:
+        enabled: true
+      prometheus:
+        enabled: true

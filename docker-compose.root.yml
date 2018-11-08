@@ -5,15 +5,13 @@ services:
       CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
     image: openjdk:8-jre
     healthcheck:
-      test: ["CMD-SHELL", "curl -f http://localhost:8888/actuator/health || exit 1"]
-      interval: 30s
-      timeout: 3s
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:8888/actuator/health"]
+      interval: 10s
+      timeout: 1s
       retries: 5
     restart: always
     volumes: 
-      - type: bind
-        source: E:\etude\dev\PiggyMetrics\config\target
-        target: /app
+      - ./config/target:/app
     ports:
       - 8888:8888
     logging:
@@ -28,10 +26,8 @@ services:
     image: openjdk:8-jre
     restart: always
     volumes:
-      - type: bind
-        source: E:\etude\dev\PiggyMetrics\registry\target
-        target: /app
-      - E:/etude/dev/PiggyMetrics/config/src/main/resources/hosts:/etc/hosts
+      - ./registry/target:/app
+      - ./config/src/main/resources/etc:/app/etc
     ports:
       - 8761:8761
     depends_on:
@@ -40,4 +36,4 @@ services:
       options:
         max-size: "10m"
         max-file: "10"
-    command: "bash -c 'java -Xmx200m -jar /app/registry.jar'"
+    command: "bash -c 'cp -r /app/etc/hosts /etc/hosts; java -Xmx200m -jar /app/registry.jar'"
