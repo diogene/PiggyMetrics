@@ -82,14 +82,19 @@ installation de account-service
 installation de statistics-service
 installation de notification-service
 
-INSTALLATION DE COMPOSANT DE SUPPORT
+## INSTALLATION DE COMPOSANT DE SUPPORT
 
 installation de monitoring
 installation de spring-administrator
 installation de turbine-stream-service
 
-installation de ELK
+installation  de prometheus
+installation  de grafana
 
+
+## INSTALLATION DE COMPOSANT DE DIAGNOSTIQUE
+
+installation de ELK
 
 installation de zipkin
 
