@@ -12,15 +12,17 @@ hystrix:
 
 eureka:
   instance:
-    prefer-ip-address: true
+    prefer-ip-address: false
+    leaseRenewalIntervalInSeconds: 10
+    health-check-url-path: /actuator/health
   client:
     serviceUrl:
-      defaultZone: http://registry:8761/eureka/
+      defaultZone: http://${REGISTRY_SERVER:registry}:8761/eureka/
 
 security:
   oauth2:
     resource:
-      user-info-uri: http://auth-service:5000/uaa/users/current
+      user-info-uri: http://${AUTH_SERVER:auth-service}:5000/uaa/users/current
 
 spring:
   rabbitmq:
@@ -34,12 +36,14 @@ management:
     export:
       prometheus:
         enabled: true
-    endpoints:
-      web:
-        exposure:
-          include: "*"
-    endpoint:
-      metrics:
-        enabled: true
-      prometheus:
-        enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true

@@ -3,14 +3,14 @@ spring:
     name: registry
   cloud:
     config:
-      uri: http://config:8888
+      uri: http://${CONFIG_SERVER:config}:8888
       fail-fast: true
       password: ${CONFIG_SERVICE_PASSWORD}
       username: user
 
 eureka:
   instance:
-    prefer-ip-address: true
+    prefer-ip-address: false
   client:
     registerWithEureka: false
     fetchRegistry: false

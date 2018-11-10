@@ -36,4 +36,4 @@ services:
       options:
         max-size: "10m"
         max-file: "10"
-    command: "bash -c 'cp -r /app/etc/hosts /etc/hosts; java -Xmx200m -jar /app/registry.jar'"
+    command: "bash -c 'cat /app/etc/hosts > /etc/hosts; java -Xmx200m -jar /app/registry.jar'"
