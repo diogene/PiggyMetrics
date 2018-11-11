@@ -15,6 +15,15 @@ spring:
       password: ${MONGODB_PASSWORD}
       database: piggymetrics
       port: ${MONGODB_STAT_PORT:27017}
+  boot:
+    admin:
+      client:
+          management-url: /statistics/actuator
+
+eureka:
+  instance:
+    health-check-url-path: /statistics/actuator/health
+    statusPageUrlPath: /statistics/actuator/info
 
 server:
   servlet:
@@ -23,3 +32,11 @@ server:
 
 rates:
   url: https://api.exchangeratesapi.io
+
+
+management.security.enabled: false  
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

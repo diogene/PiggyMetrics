@@ -10,6 +10,11 @@ ribbon:
   ReadTimeout: 20000
   ConnectTimeout: 20000
 
+eureka:
+  instance:
+    health-check-url-path: /actuator/health
+    statusPageUrlPath: /actuator/info
+
 zuul:
   ignoredServices: '*'
   host:

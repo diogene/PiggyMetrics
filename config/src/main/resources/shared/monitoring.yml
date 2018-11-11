@@ -1,0 +1,5 @@
+
+eureka:
+  instance:
+    health-check-url-path: /actuator/health
+    statusPageUrlPath: /actuator/info

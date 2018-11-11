@@ -16,6 +16,12 @@ spring:
       database: piggymetrics
       port: ${MONGODB_ACCOUNT_PORT:27017}
 
+      
+eureka:
+  instance:
+    statusPageUrlPath: /accounts/actuator/info
+    health-check-url-path: /accounts/actuator/health
+
 server:
   servlet:
     context-path: /accounts

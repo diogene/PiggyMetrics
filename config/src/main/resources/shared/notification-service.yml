@@ -7,6 +7,11 @@ security:
       grant-type: client_credentials
       scope: server
 
+eureka:
+  instance:
+    health-check-url-path: /notifications/actuator/health
+    statusPageUrlPath: /notifications/actuator/info
+
 server:
   servlet:
     context-path: /notifications
@@ -34,17 +39,5 @@ spring:
       database: piggymetrics
       port: ${MONGODB_NOTIF_PORT:27017} 
   mail:
-    host: smtp.gmail.com
-    port: 465
-    username: dev-user
-    password: dev-password
-    properties:
-      mail:
-        smtp:
-          auth: true
-          socketFactory:
-            port: 465
-            class: javax.net.ssl.SSLSocketFactory
-            fallback: false
-          ssl:
-            enable: true
+    host: localhost
+    port: 25

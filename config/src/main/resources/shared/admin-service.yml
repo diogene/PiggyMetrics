@@ -1,0 +1,16 @@
+
+eureka:
+  instance:
+    health-check-url-path: /actuator/health
+    statusPageUrlPath: /actuator/info
+
+logging:
+  level:
+    org.springframework.security: INFO
+    org.springframework.security.oauth2: DEBUG
+
+spring.boot.admin.turbine:
+  clusters: default
+  location: turbine
+
+spring.boot.admin.routes.endpoints: env,metrics,trace,dump,jolokia,info,configprops,trace,logfile,refresh,flyway,liquibase,heapdump,loggers,auditevents,hystrix.stream

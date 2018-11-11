@@ -125,7 +125,7 @@ installation de statistics-service
 installation de notification-service
 installation du Gateway
 
-java -Xms256M -DMONGODB_ACCOUNT_PORT=26000 -DCONFIG_SERVICE_PASSWORD="123456@!" -DMONGODB_PASSWORD="123456@!" -jar ./account-service.jar 
+java -Xms256M -DMONGODB_ACCOUNT_PORT=26000 -DCONFIG_SERVICE_PASSWORD="123456@!" -DMONGODB_PASSWORD="123456@!" -jar ./target/account-service.jar 
 java -Xms256M -DMONGODB_STAT_PORT=27000 -DCONFIG_SERVICE_PASSWORD="123456@!" -DMONGODB_PASSWORD="123456@!" -jar ./target/statistics-service.jar 
 java -Xms256M -DMONGODB_NOTIF_PORT=28000 -DCONFIG_SERVICE_PASSWORD="123456@!" -DMONGODB_PASSWORD="123456@!" -jar ./target/notification-service.jar 
 
@@ -137,7 +137,10 @@ installation de monitoring
 installation de spring-administrator
 installation de turbine-stream-service
 
-java -Xms256M -DCONFIG_SERVICE_PASSWORD="123456@!" -jar admin.jar 
+
+java -Xms256M -DCONFIG_SERVICE_PASSWORD="123456@!" -jar ./target/turbine-stream-service.jar
+java -Xms256M -DCONFIG_SERVICE_PASSWORD="123456@!" -jar ./target/monitoring.jar
+java -Xms256M -DCONFIG_SERVICE_PASSWORD="123456@!" -jar ./target/admin.jar 
 
 
 installation  de prometheus
