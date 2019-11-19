@@ -1,0 +1,62 @@
+version: '3'
+networks:
+  default:
+    external:
+      name: piggyMetrics
+      
+services:
+  node_exporter:
+    image: quay.io/prometheus/node-exporter
+    pid: "host"
+    ports:
+      - 9100:9100
+    labels:
+      SERVICE_TAGS: "development"
+      SERVICE_NAME: "node_exporter"
+      SERVICE_TAG_IO_PROMETHEUS_SCRAPED: "true"
+
+  docker_exporter:
+    image: wisecity/docker-metrics-exporter
+    volumes:
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /var/run:/var/run:rw
+    labels:
+      SERVICE_TAGS: "production"
+
+  cadvisor:
+    image: google/cadvisor:latest
+    ports:
+      - 9080:8080
+    volumes:
+      - /:/rootfs:ro 
+      - /var/run:/var/run:rw
+      - /var/lib/docker/:/var/lib/docker:ro
+    labels:
+      SERVICE_TAGS: "production,scraped"
+
+  prometheus:
+    image: quay.io/prometheus/prometheus
+    ports:
+      - 9090:9090
+    networks: 
+      - default
+    volumes:
+      - /home/etud/diogene.moulron/TP/08/PiggyMetrics/config/src/main/resources/shared/prometheus-config.yml:/etc/prometheus/prometheus.yml
+
+  
+  grafana:
+    image: grafana/grafana
+    volumes:
+      - /home/etud/diogene.moulron/TP/08/PiggyMetrics/grafana/provisioning/:/etc/grafana/provisioning/
+    environment:
+      - GF_SERVER_ROUTER_LOGGING=true
+      - GF_LOG_CONSOLE_FORMAT=json
+      - GF_LOG_FILTERS=alerting.notifier:debug,alerting.notifier.slack:debug,auth:debug
+      - GF_AUTH_TOKEN_ROTATION_INTERVAL_MINUTES=2
+    ports:
+      - 3000
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+        tag: grafana

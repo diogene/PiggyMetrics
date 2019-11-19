@@ -1,8 +1,0 @@
-
-server:
-  port: 9000
-
-eureka:
-  instance:
-    health-check-url-path: /actuator/health
-    statusPageUrlPath: /actuator/info

@@ -22,19 +22,21 @@ scrape_configs:
     static_configs:
       - targets: ['cadvisor:8080']
 
-  - job_name: 'node-exporter'
+  - job_name: 'node_exporter'
     scrape_interval: 10s
     static_configs:
-      - targets: ['node-exporter:9100']
+      - targets: ['node_exporter:9100']
 
   # Added to get services from Eureka-Consul-Adapter
   - job_name: 'eureka'
     scrape_interval: 20s
+    metrics_path: /actuator/prometheus
     static_configs:
     consul_sd_configs:
-      - server: 'localhost:8761'
+      - server: 'registry:8761'
     relabel_configs:
       - source_labels: ['__meta_consul_tags']
         action: keep
       - source_labels: ['__meta_consul_service']
         target_label: job
+  

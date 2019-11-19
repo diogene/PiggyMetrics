@@ -170,7 +170,7 @@ services:
         max-size: "10m"
         max-file: "10"
     volumes: 
-      - /home/etud/diogene.moulron/TP/08/PiggyMetrics/account-service/target/account-service-1.0-SNAPSHOT.jar:/usr/share/account-service/account-service-1.0-SNAPSHOT.jar
+      - /home/etud/diogene.moulron/TP/08/PiggyMetrics/statistics-service/target/statistics-service-1.0-SNAPSHOT.jar:/usr/share/statistics-service/statistics-service-1.0-SNAPSHOT.jar
     command: >
       /bin/sh -c "
         echo Waiting for config service start...;
@@ -179,7 +179,7 @@ services:
           sleep 1;
         done;
         echo Connected!
-        bash -c 'java -jar /usr/share/account-service/account-service-1.0-SNAPSHOT.jar -Dlogging.level.org.springframework=DEBUG';
+        bash -c 'java -jar /usr/share/statistics-service/statistics-service-1.0-SNAPSHOT.jar -Dlogging.level.org.springframework=DEBUG';
       "
 
 
@@ -197,7 +197,7 @@ services:
         max-size: "10m"
         max-file: "10"
     volumes: 
-      - /home/etud/diogene.moulron/TP/08/PiggyMetrics/notification-service/target/notification-service-1.0.0-SNAPSHOT.jar:/usr/share/notification-service/notification-service-1.0.0-SNAPSHOT.jar
+      - /home/etud/diogene.moulron/TP/08/PiggyMetrics/notification-service/target:/usr/share/notification-service
     command: >
       /bin/sh -c "
         echo Waiting for config service start...;
@@ -206,7 +206,8 @@ services:
           sleep 1;
         done;
         echo Connected!
-        bash -c 'java -jar /usr/share/notification-service/notification-service-1.0.0-SNAPSHOT.jar -Dlogging.level.org.springframework=DEBUG';
+        bash -c 'java -jar  /usr/share/notification-service/fakeSMTP-2.0.jar -s -b -p 2525 -a 127.0.0.1  > /dev/null' &
+        bash -c 'java -jar /usr/share/notification-service/notification-service-1.0.0-SNAPSHOT.jar -Dlogging.level.org.springframework=DEBUG' 
       "
 
 

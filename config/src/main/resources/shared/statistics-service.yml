@@ -28,15 +28,7 @@ eureka:
 server:
   servlet:
     context-path: /statistics
-  port: 7000
+  port: 0
 
 rates:
   url: https://api.exchangeratesapi.io
-
-
-management.security.enabled: false  
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
