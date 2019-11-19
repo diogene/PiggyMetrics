@@ -26,10 +26,16 @@ security:
 spring:
   rabbitmq:
     host: rabbitmq
+  boot:
+    admin:
+      client:
+          enabled: true
+          url: http://${ADMIN_SERVER:admin}:8080
 
 
-management.security.enabled: false   
 management:
+  security:
+    enabled: false 
   metrics:
     export:
       prometheus:

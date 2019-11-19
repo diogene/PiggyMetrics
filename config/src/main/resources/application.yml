@@ -11,12 +11,7 @@ spring:
   security:
     user:
       password: ${CONFIG_SERVICE_PASSWORD}
-  boot:
-    admin:
-      client:
-          enabled: true
-          url: http://${ADMIN_SERVER:admin}:8080
-
+      
 server:
   port: 8888
 

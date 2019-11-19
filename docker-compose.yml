@@ -9,17 +9,24 @@ services:
   config:
     environment:
       CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
-    image: sqshq/piggymetrics-config
+    image: java
     restart: always
+    ports:
+      - 8888:8888
     logging:
       options:
         max-size: "10m"
         max-file: "10"
+    volumes: 
+      - /home/etud/diogene.moulron/TP/08/PiggyMetrics/config/target/config-1.0.0-SNAPSHOT.jar:/usr/share/registry/config-1.0.0-SNAPSHOT.jar
+    networks: 
+      - default
+    command: bash -c 'java -jar /usr/share/registry/config-1.0.0-SNAPSHOT.jar --server.port=8888 -Dlogging.level.org.springframework=DEBUG'
 
   registry:
     environment:
       CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
-    image: sqshq/piggymetrics-registry
+    image: java
     restart: always
     depends_on:
       - config
@@ -29,6 +36,20 @@ services:
       options:
         max-size: "10m"
         max-file: "10"
+    volumes: 
+      - /home/etud/diogene.moulron/TP/08/PiggyMetrics/registry/target/registry-0.0.1-SNAPSHOT.jar:/usr/share/registry/registry-0.0.1-SNAPSHOT.jar
+    networks: 
+      - default
+    command: >
+      /bin/sh -c "
+        echo Waiting for config service start...;
+        while ! curl --user "user:$CONFIG_SERVICE_PASSWORD" --write-out %{http_code} --silent --output /dev/null -f http://config:8888/actuator/health;
+        do
+          sleep 1;
+        done;
+        echo Connected!
+        bash -c 'java -jar /usr/share/registry/registry-0.0.1-SNAPSHOT.jar --server.port=8761 -Dlogging.level.org.springframework=DEBUG'
+      "
 
   admin:
     environment:
@@ -41,7 +62,18 @@ services:
       - 9510:8080
     volumes: 
       - /home/etud/diogene.moulron/TP/08/PiggyMetrics/admin/target/admin-1.0-SNAPSHOT.jar:/usr/share/admin/admin-1.0-SNAPSHOT.jar
-    command: bash -c 'java -jar /usr/share/admin/admin-1.0-SNAPSHOT.jar --server.port=8080 -Dlogging.level.org.springframework=DEBUG '
+    networks: 
+      - default
+    command: >
+      /bin/sh -c "
+        echo Waiting for config service start...;
+        while ! curl --user "user:$CONFIG_SERVICE_PASSWORD" --write-out %{http_code} --silent --output /dev/null -f http://config:8888/actuator/health;
+        do
+          sleep 1;
+        done;
+        echo Connected!
+        bash -c 'java -jar /usr/share/admin/admin-1.0-SNAPSHOT.jar --server.port=8080 -Dlogging.level.org.springframework=DEBUG';
+      "
 
   gateway:
     environment:

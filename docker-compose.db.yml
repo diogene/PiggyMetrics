@@ -12,6 +12,8 @@ services:
     restart: always
     ports:
       - 25000:27017
+    networks: 
+      - default
     logging:
       options:
         max-size: "10m"
@@ -25,6 +27,8 @@ services:
     restart: always
     ports:
       - 26000:27017
+    networks: 
+      - default
     logging:
       options:
         max-size: "10m"
@@ -37,6 +41,8 @@ services:
     restart: always
     ports:
       - 27000:27017
+    networks: 
+      - default
     logging:
       options:
         max-size: "10m"
@@ -49,6 +55,8 @@ services:
       MONGODB_PASSWORD: $MONGODB_PASSWORD
     ports:
       - 28000:27017
+    networks: 
+      - default
     logging:
       options:
         max-size: "10m"
@@ -60,6 +68,8 @@ services:
     ports:
       - 15672:15672
       - 5672:5672
+    networks: 
+      - default
     logging:
       options:
         max-size: "10m"
