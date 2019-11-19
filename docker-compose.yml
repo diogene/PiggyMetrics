@@ -78,7 +78,7 @@ services:
   gateway:
     environment:
       CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
-    image: sqshq/piggymetrics-gateway
+    image: java
     restart: always
     depends_on:
       - config
@@ -88,6 +88,18 @@ services:
       options:
         max-size: "10m"
         max-file: "10"
+    volumes: 
+      - /home/etud/diogene.moulron/TP/08/PiggyMetrics/gateway/target/gateway-1.0-SNAPSHOT.jar:/usr/share/gateway/gateway-1.0-SNAPSHOT.jar
+    command: >
+      /bin/sh -c "
+        echo Waiting for config service start...;
+        while ! curl --user "user:$CONFIG_SERVICE_PASSWORD" --write-out %{http_code} --silent --output /dev/null -f http://config:8888/actuator/health;
+        do
+          sleep 1;
+        done;
+        echo Connected!
+        bash -c 'java -jar /usr/share/gateway/gateway-1.0-SNAPSHOT.jar --server.port=4000 -Dlogging.level.org.springframework=DEBUG';
+      "
 
   auth-service:
     environment:
@@ -104,6 +116,18 @@ services:
       options:
         max-size: "10m"
         max-file: "10"
+    volumes: 
+      - /home/etud/diogene.moulron/TP/08/PiggyMetrics/auth-service/target/auth-service-1.0-SNAPSHOT.jar:/usr/share/auth-service/auth-service-1.0-SNAPSHOT.jar
+    command: >
+      /bin/sh -c "
+        echo Waiting for config service start...;
+        while ! curl --user "user:$CONFIG_SERVICE_PASSWORD" --write-out %{http_code} --silent --output /dev/null -f http://config:8888/actuator/health;
+        do
+          sleep 1;
+        done;
+        echo Connected!
+        bash -c 'java -jar /usr/share/auth-service/auth-service-1.0-SNAPSHOT.jar -Dlogging.level.org.springframework=DEBUG';
+      "
 
   account-service:
     environment:
@@ -118,6 +142,19 @@ services:
       options:
         max-size: "10m"
         max-file: "10"
+    volumes: 
+      - /home/etud/diogene.moulron/TP/08/PiggyMetrics/account-service/target/account-service-1.0-SNAPSHOT.jar:/usr/share/account-service/account-service-1.0-SNAPSHOT.jar
+    command: >
+      /bin/sh -c "
+        echo Waiting for config service start...;
+        while ! curl --user "user:$CONFIG_SERVICE_PASSWORD" --write-out %{http_code} --silent --output /dev/null -f http://config:8888/actuator/health;
+        do
+          sleep 1;
+        done;
+        echo Connected!
+        bash -c 'java -jar /usr/share/account-service/account-service-1.0-SNAPSHOT.jar -Dlogging.level.org.springframework=DEBUG';
+      "
+
 
   statistics-service:
     environment:
@@ -132,6 +169,19 @@ services:
       options:
         max-size: "10m"
         max-file: "10"
+    volumes: 
+      - /home/etud/diogene.moulron/TP/08/PiggyMetrics/account-service/target/account-service-1.0-SNAPSHOT.jar:/usr/share/account-service/account-service-1.0-SNAPSHOT.jar
+    command: >
+      /bin/sh -c "
+        echo Waiting for config service start...;
+        while ! curl --user "user:$CONFIG_SERVICE_PASSWORD" --write-out %{http_code} --silent --output /dev/null -f http://config:8888/actuator/health;
+        do
+          sleep 1;
+        done;
+        echo Connected!
+        bash -c 'java -jar /usr/share/account-service/account-service-1.0-SNAPSHOT.jar -Dlogging.level.org.springframework=DEBUG';
+      "
+
 
   notification-service:
     environment:
@@ -146,5 +196,18 @@ services:
       options:
         max-size: "10m"
         max-file: "10"
+    volumes: 
+      - /home/etud/diogene.moulron/TP/08/PiggyMetrics/notification-service/target/notification-service-1.0.0-SNAPSHOT.jar:/usr/share/notification-service/notification-service-1.0.0-SNAPSHOT.jar
+    command: >
+      /bin/sh -c "
+        echo Waiting for config service start...;
+        while ! curl --user "user:$CONFIG_SERVICE_PASSWORD" --write-out %{http_code} --silent --output /dev/null -f http://config:8888/actuator/health;
+        do
+          sleep 1;
+        done;
+        echo Connected!
+        bash -c 'java -jar /usr/share/notification-service/notification-service-1.0.0-SNAPSHOT.jar -Dlogging.level.org.springframework=DEBUG';
+      "
+
 
 
