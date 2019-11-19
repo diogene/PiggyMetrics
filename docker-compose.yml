@@ -41,7 +41,7 @@ services:
       - 9510:8080
     volumes: 
       - /home/etud/diogene.moulron/TP/08/PiggyMetrics/admin/target/admin-1.0-SNAPSHOT.jar:/usr/share/admin/admin-1.0-SNAPSHOT.jar
-    command: bash -c 'java -jar /usr/share/admin/admin-1.0-SNAPSHOT.jar --server.port=8080 '
+    command: bash -c 'java -jar /usr/share/admin/admin-1.0-SNAPSHOT.jar --server.port=8080 -Dlogging.level.org.springframework=DEBUG '
 
   gateway:
     environment:
