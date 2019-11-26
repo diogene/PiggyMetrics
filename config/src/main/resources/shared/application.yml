@@ -14,6 +14,9 @@ eureka:
   instance:
     prefer-ip-address: false
     leaseRenewalIntervalInSeconds: 10    
+    metadata-map:
+      management.context-path: ${management.context-path}
+
   client:
     serviceUrl:
       defaultZone: http://${REGISTRY_SERVER:registry}:8761/eureka/
@@ -51,3 +54,4 @@ management:
       enabled: true
     prometheus:
       enabled: true
+    

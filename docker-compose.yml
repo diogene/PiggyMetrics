@@ -38,8 +38,6 @@ services:
         max-file: "10"
     volumes: 
       - /home/etud/diogene.moulron/TP/08/PiggyMetrics/registry/target/registry-0.0.1-SNAPSHOT.jar:/usr/share/registry/registry-0.0.1-SNAPSHOT.jar
-    networks: 
-      - default
     command: >
       /bin/sh -c "
         echo Waiting for config service start...;
@@ -62,8 +60,6 @@ services:
       - 9510:8080
     volumes: 
       - /home/etud/diogene.moulron/TP/08/PiggyMetrics/admin/target/admin-1.0-SNAPSHOT.jar:/usr/share/admin/admin-1.0-SNAPSHOT.jar
-    networks: 
-      - default
     command: >
       /bin/sh -c "
         echo Waiting for config service start...;
@@ -116,6 +112,8 @@ services:
       options:
         max-size: "10m"
         max-file: "10"
+    ports:
+      - 5555:5000
     volumes: 
       - /home/etud/diogene.moulron/TP/08/PiggyMetrics/auth-service/target/auth-service-1.0-SNAPSHOT.jar:/usr/share/auth-service/auth-service-1.0-SNAPSHOT.jar
     command: >
@@ -197,7 +195,8 @@ services:
         max-size: "10m"
         max-file: "10"
     volumes: 
-      - /home/etud/diogene.moulron/TP/08/PiggyMetrics/notification-service/target:/usr/share/notification-service
+      - /home/etud/diogene.moulron/TP/08/PiggyMetrics/notification-service/target/notification-service-1.0.0-SNAPSHOT.jar:/usr/share/notification-service/notification-service-1.0.0-SNAPSHOT.jar
+      - /home/etud/diogene.moulron/TP/08/fakeSMTP-2.0.jar:/usr/share/notification-service/fakeSMTP-2.0.jar
     command: >
       /bin/sh -c "
         echo Waiting for config service start...;

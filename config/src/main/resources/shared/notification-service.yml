@@ -41,3 +41,7 @@ spring:
   mail:
     host: localhost
     port: 2525
+
+
+management:
+  context-path: /notifications

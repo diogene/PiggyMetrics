@@ -14,10 +14,6 @@
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 
-    <properties>
-        <spring-boot-admin.version>2.0.6</spring-boot-admin.version>
-    </properties>
-
     <dependencies>
         <!-- Spring Boot -->
         <dependency>
@@ -43,17 +39,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
-
-        <!-- Micormeter core dependecy  -->
-        <dependency>
-            <groupId>io.micrometer</groupId>
-            <artifactId>micrometer-core</artifactId>
-        </dependency>
-        <!-- Micrometer Prometheus registry  -->
-        <dependency>
-            <groupId>io.micrometer</groupId>
-            <artifactId>micrometer-registry-prometheus</artifactId>
         </dependency>
     </dependencies>
 </project>

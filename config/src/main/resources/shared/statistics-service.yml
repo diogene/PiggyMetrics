@@ -32,3 +32,6 @@ server:
 
 rates:
   url: https://api.exchangeratesapi.io
+
+management:
+  context-path: /statistics
