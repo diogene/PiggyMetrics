@@ -31,3 +31,4 @@ management:
       enabled: true
     prometheus:
       enabled: true
+  context-path: /

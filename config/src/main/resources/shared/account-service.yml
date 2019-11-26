@@ -33,4 +33,4 @@ feign:
 
 
 management:
-  context-path: /accounts
+  context-path: /accounts/actuator

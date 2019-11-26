@@ -8,3 +8,7 @@ logging:
   level:
     org.springframework.security: INFO
     org.springframework.security.oauth2: DEBUG
+
+
+management:
+  context-path: /actuator

@@ -44,4 +44,4 @@ spring:
 
 
 management:
-  context-path: /notifications
+  context-path: /notifications/actuator

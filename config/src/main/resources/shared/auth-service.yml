@@ -8,20 +8,18 @@ spring:
       port: ${MONGODB_AUTH_PORT:27017}
   boot:
     admin:
-      client:
-          management-url: /uaa/actuator
+      discovery:
+        converter.management-context-path: '/uaa/actuator'
 
 eureka:
   instance:
     health-check-url-path: /uaa/actuator/health
     statusPageUrlPath: /uaa/actuator/info
     
-  
-
 server:
   servlet:
     context-path: /uaa
   port: 5000
 
 management:
-  context-path: /uaa
+  context-path: /uaa/actuator
