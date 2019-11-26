@@ -6,10 +6,6 @@ spring:
       password: ${MONGODB_PASSWORD}
       database: piggymetrics
       port: ${MONGODB_AUTH_PORT:27017}
-  boot:
-    admin:
-      discovery:
-        converter.management-context-path: '/uaa/actuator'
 
 eureka:
   instance:
@@ -20,6 +16,3 @@ server:
   servlet:
     context-path: /uaa
   port: 5000
-
-management:
-  context-path: /uaa/actuator

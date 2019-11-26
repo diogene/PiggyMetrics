@@ -26,12 +26,6 @@ security:
 spring:
   rabbitmq:
     host: rabbitmq
-  boot:
-    admin:
-      client:
-          enabled: true
-          url: http://${ADMIN_SERVER:admin}:8080
-
 
 management:
   security:
