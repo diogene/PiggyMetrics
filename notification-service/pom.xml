@@ -65,18 +65,6 @@
 			<artifactId>spring-boot-starter-mail</artifactId>
 		</dependency>
 		
-		
-		<!-- Micormeter core dependecy  -->
-		<dependency>
-			<groupId>io.micrometer</groupId>
-			<artifactId>micrometer-core</artifactId>
-		</dependency>
-		<!-- Micrometer Prometheus registry  -->
-		<dependency>
-			<groupId>io.micrometer</groupId>
-			<artifactId>micrometer-registry-prometheus</artifactId>
-		</dependency>
-
 		<dependency>
 			<groupId>de.flapdoodle.embed</groupId>
 			<artifactId>de.flapdoodle.embed.mongo</artifactId>
